@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # name: discourse-multilingual
 # about: Features to support multilingual forums
-# version: 0.2.9
+# version: 0.2.10
 # url: https://github.com/paviliondev/discourse-multilingual
 # authors: Angus McLeod, Robert Barrow
 # contact_emails: development@pavilion.tech
@@ -14,7 +14,7 @@ register_asset "stylesheets/mobile/multilingual.scss", :mobile
 if respond_to?(:register_svg_icon)
   register_svg_icon "language"
   register_svg_icon "translate"
-  register_svg_icon "save"
+  register_svg_icon "floppy-disk"
 end
 
 require_relative "./lib/validators/content_languages_validator.rb"
