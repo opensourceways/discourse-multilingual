@@ -19,7 +19,12 @@ module ExtraLocalesControllerMultilingualClassExtension
   end
 
   def bundle_js_hash(bundle, locale:)
-    Digest::MD5.hexdigest(bundle_js(bundle, locale: locale))
+    Rails.logger.warn("DEBUG: Current locale is #{locale} bundle: #{bundle}")
+    if bundle === "tags"
+      Digest::MD5.hexdigest(bundle_js(bundle, locale: locale))
+    else
+      super("admin", locale: locale)
+    end
   end
 end
 
