@@ -1,32 +1,20 @@
 # frozen_string_literal: true
-class ::Multilingual::LocaleLoader
-  attr_reader :controller
-
-  delegate :request, to: :controller
-  delegate :helpers, to: :controller, private: true
-  delegate :asset_path, to: :helpers
-
-  def initialize(controller)
-    @controller = controller
+class Multilingual::LocaleLoader
+  # JIT 语言包加载核心方法（类方法）
+  def self.load(locale)
+    {
+      locale.to_sym => {
+        js: I18n.t("js", locale: locale).deep_symbolize_keys
+      }
+    }.to_json
   end
 
-  def current_locale
-    I18n.locale.to_s
-  end
-
-  def custom_locale?
-    Multilingual::CustomLanguage.is_custom?(current_locale)
-  end
-
-  def preload_i18n
-    helpers.preload_script("locales/i18n")
-  end
-
-  def preload_custom_locale
-    helpers.preload_script_url(ExtraLocalesController.url("custom-language"))
-  end
-
-  def preload_tag_translations
-    helpers.preload_script_url(ExtraLocalesController.url("tags"))
+  # 标签翻译加载（兼容旧版）
+  def self.load_tags(locale)
+    {
+      locale.to_sym => {
+        tags: Multilingual::Translation.get("tag").slice(locale.to_sym)
+      }
+    }.to_json
   end
 end
