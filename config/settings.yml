@@ -20,7 +20,7 @@ plugins:
     validator: LanguageSwitcherValidator
   multilingual_guest_language_switcher_footer_visible:
     type: list
-    default: ar|zh_CN|en|es|fr|ru
+    default: ar|zh|en|es|fr|ru
     client: true
   multilingual_require_content_language_tag:
     type: enum
